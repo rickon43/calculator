@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>javaScriptCalculator</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <div id="calculator">
+            <div id="display">0</div>
+            <buttonclass="numButton">1</button>
+            <buttonclass="numButton">2</button>
+            <buttonclass="numButton">3</button>
+            <buttonclass="numButton">4</button>
+            <buttonclass="numButton">5</button>
+            <buttonclass="numButton">6</button>
+            <buttonclass="numButton">7</button>
+            <buttonclass="numButton">8</button>
+            <buttonclass="numButton">9</button>
+            <buttonclass="numButton">*</button>
+            <buttonclass="numButton">0</button>
+            <buttonclass="numButton">/</button>
+            <buttonclass="numButton">=</button>
+            <buttonclass="numButton">C</button>
+        </div>
+        <script src="script.js"></script>
+        <script>
+            /*Define global variables for storing operand,operator values*/
+            let firstOperand="";
+            let secondOperand="";
+            let currentOperator=null;
+            let resetScreen=false;
+
+            /*Get reference to the display and buttons on the page*/
+            const display=
+        document.querySelector("#display");
+            const numButtons=
+        document.querySelectorAll(".numButtons");
+            const opButtons=
+        document.querySelectorAll(".opButton");
+            const eqButton=
+        document.querySelector(".eqButton");
+            const clearButton=
+        document.querySelector(".clearButton");
+
+        /*Event listener for number buttons.On click,append the number to display*/
+            numButtons.forEach(button =>{
+                button.addEventListener('click',()=>appendNumber(button.textContent));
+            });
+        /*Event listener for operator buttons.On click,store the first operand and set the current operator*/
+        opButtons.forEach(button=>{
+            button.addEventListener('click',()=>setOperation(button.textContent));
+        });
+        /*Event listener for equals button.On click,perform the calculation and display the result*/
+        eqButton.addEventListener('click',()=>compute());
+
+        /*Function to append the clicked number to the display*/
+        function appendNumber(num){
+            if(resetScreen){
+                display.textContent="";
+                resetScreen=false;
+            }
+            display.textContent += num;
+        }
+
+        /*Function to perform the calulation and display the result*/
+        function compute(){
+            secondOperand=displaytextContent;
+            display.textContent=
+        operate(currentOperator,firstOperand,secondOperand);
+        currentOperator=null;
+        }
+        /*Function to clear all stored data and reset display*/
+        function clear(){
+            display.textContent="0";
+            firstOperand="";
+            secondOperand="";
+            currentOperator=null;
+        }
+        /*Function to perform the selected operation on the two operands*/
+        function operate(operator,a,b){
+            a=Number(a);
+            b=Number(b);
+            switch(operator){
+        case '+':
+            return a+b;
+        case '-':
+            return a-b;
+        case '*':
+            return a*b;
+        case '/':
+            /*Error handling for division by zero*/
+            if(b===0)return'Error!Div by 0';
+            return a/b;
+            return b;
+            }
+        }
+        </script>
+    </body>
+</html>
